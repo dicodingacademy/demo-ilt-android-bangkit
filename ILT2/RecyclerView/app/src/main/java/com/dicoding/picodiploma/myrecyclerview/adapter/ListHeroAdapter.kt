@@ -14,15 +14,22 @@ import java.util.*
  * Created by sidiqpermana on 10/28/16.
  */
 
-class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+class ListHeroAdapter(
+    private val listHero: ArrayList<Hero>,
+    //using lambda
+    private val onItemClick: (Hero) -> Unit
+) :
+    RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
+    //using interface
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
         return ListViewHolder(view)
     }
 
@@ -32,7 +39,10 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adap
         holder.tvName.text = name
         holder.tvDescription.text = description
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listHero[holder.adapterPosition])
+            //using interface
+            onItemClickCallback.onItemClicked(listHero[position])
+            //using lambda
+            onItemClick(listHero[position])
         }
 
     }

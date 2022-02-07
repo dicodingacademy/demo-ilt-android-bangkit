@@ -45,8 +45,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             rvHeroes.layoutManager = LinearLayoutManager(this)
         }
-        val listHeroAdapter = ListHeroAdapter(list)
+
+        //using lambda
+        val listHeroAdapter = ListHeroAdapter(list){ data ->
+            showSelectedHero(data)
+        }
         rvHeroes.adapter = listHeroAdapter
+
+        //using interface
         listHeroAdapter.setOnItemClickCallback(object : ListHeroAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Hero) {
                 showSelectedHero(data)
