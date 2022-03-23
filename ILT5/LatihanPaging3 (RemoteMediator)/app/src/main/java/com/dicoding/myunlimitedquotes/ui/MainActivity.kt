@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
                 adapter.retry()
             }
         )
-        mainViewModel.quote.observe(this, {
+        mainViewModel.quote.observe(this) {
             adapter.submitData(lifecycle, it)
-        })
+        }
     }
 }
