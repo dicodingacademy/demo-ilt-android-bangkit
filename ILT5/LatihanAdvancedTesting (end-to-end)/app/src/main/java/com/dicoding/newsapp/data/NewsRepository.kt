@@ -29,7 +29,7 @@ class NewsRepository (
                 }
                 emit(Result.Success(newsList))
             } catch (e: Exception) {
-                Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
+                Log.d(TAG, "getHeadlineNews: ${e.message.toString()} ")
                 emit(Result.Error(e.message.toString()))
             }
         }
@@ -61,5 +61,7 @@ class NewsRepository (
             instance ?: synchronized(this) {
                 instance ?: NewsRepository(apiService, newsDao)
             }.also { instance = it }
+
+        private val TAG = NewsRepository::class.java.simpleName
     }
 }
