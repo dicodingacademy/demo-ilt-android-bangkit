@@ -83,28 +83,25 @@ class MyEditText : AppCompatEditText, OnTouchListener {
             val clearButtonEnd: Float
             var isClearButtonClicked = false
 
-            when (layoutDirection) {
-                View.LAYOUT_DIRECTION_RTL -> {
-                    clearButtonEnd = (clearButtonImage.intrinsicWidth + paddingStart).toFloat()
-                    when {
-                        event.x < clearButtonEnd -> isClearButtonClicked = true
-                    }
+            if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                clearButtonEnd = (clearButtonImage.intrinsicWidth + paddingStart).toFloat()
+                when {
+                    event.x < clearButtonEnd -> isClearButtonClicked = true
                 }
-                else -> {
-                    clearButtonStart = (width - paddingEnd - clearButtonImage.intrinsicWidth).toFloat()
-                    when {
-                        event.x > clearButtonStart -> isClearButtonClicked = true
-                    }
+            } else {
+                clearButtonStart = (width - paddingEnd - clearButtonImage.intrinsicWidth).toFloat()
+                when {
+                    event.x > clearButtonStart -> isClearButtonClicked = true
                 }
             }
-            when {
-                isClearButtonClicked -> when {
-                    event.action == MotionEvent.ACTION_DOWN -> {
+            if (isClearButtonClicked) {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
                         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_black_24dp) as Drawable
                         showClearButton()
                         return true
                     }
-                    event.action == MotionEvent.ACTION_UP -> {
+                    MotionEvent.ACTION_UP -> {
                         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_close_black_24dp) as Drawable
                         when {
                             text != null -> text?.clear()
@@ -114,8 +111,7 @@ class MyEditText : AppCompatEditText, OnTouchListener {
                     }
                     else -> return false
                 }
-                else -> return false
-            }
+            } else return false
         }
         return false
     }
