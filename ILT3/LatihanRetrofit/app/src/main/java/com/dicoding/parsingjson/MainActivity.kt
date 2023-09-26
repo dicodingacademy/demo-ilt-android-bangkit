@@ -1,19 +1,16 @@
 package com.dicoding.parsingjson
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.parsingjson.model.DataItem
 import com.dicoding.parsingjson.model.ResponseUser
 import com.dicoding.parsingjson.network.ApiConfig
-import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Retrofit
-import com.dicoding.parsingjson.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         adapter = UserAdapter(mutableListOf())
 
-        rv_users.setHasFixedSize(true)
-        rv_users.layoutManager = LinearLayoutManager(this)
-        rv_users.adapter = adapter
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_users)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
         getUser()
     }
