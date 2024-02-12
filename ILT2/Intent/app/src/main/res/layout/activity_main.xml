@@ -36,6 +36,13 @@
         android:text="@string/dial_number" />
 
     <Button
+        android:id="@+id/btn_open_another_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/open_another_app" />
+
+    <Button
         android:id="@+id/btn_move_for_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

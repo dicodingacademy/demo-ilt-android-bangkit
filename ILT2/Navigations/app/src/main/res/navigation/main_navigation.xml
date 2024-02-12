@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  TODO: 3. Introduce about Navigation Graph - Show the graph visualisation -->
+<!-- Show how the graph correlated with the code in here (action and argument) -->
+<!-- Note about the argument, we must implement the safeargs plugin first - check build.gradle-->
+<!-- Note about the navigation startDestination - @id/homeFragment -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dicoding.navigations.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.dicoding.navigations.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us">
+        <!--    TODO: 7. Mention how we can also implement a deep link to one of the fragment -->
+        <!-- It's reccommended to demonstrate the deeplink demo like in the slide-->
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="https://www.dicoding.com/mynavigationapp/aboutus" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.dicoding.navigations.TripDetailFragment"
+        android:label="fragment_trip_detail"
+        tools:layout="@layout/fragment_trip_detail" >
+        <action
+            android:id="@+id/action_tripDetailFragment_to_bookTripFragment"
+            app:destination="@id/bookTripFragment" />
+        <argument
+            android:name="userData"
+            app:argType="com.dicoding.navigations.UserAccount" />
+        <argument
+            android:name="trip"
+            app:argType="com.dicoding.navigations.Trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_myTripsFragment"
+            app:destination="@id/myTripsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myTripsFragment"
+        android:name="com.dicoding.navigations.MyTripsFragment"
+        android:label="fragment_my_trips"
+        tools:layout="@layout/fragment_my_trips" >
+        <action
+            android:id="@+id/action_myTripsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <!-- TODO: 6. Mention how we can animate fragment transition -->
+        <action
+            android:id="@+id/action_myTripsFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookTripFragment"
+        android:name="com.dicoding.navigations.BookTripFragment"
+        android:label="fragment_book_trip"
+        tools:layout="@layout/fragment_book_trip" >
+        <action
+            android:id="@+id/action_bookTripFragment_to_myTripsFragment"
+            app:destination="@id/myTripsFragment" />
+        <argument
+            android:name="userData"
+            app:argType="com.dicoding.navigations.UserAccount" />
+        <argument
+            android:name="trip"
+            app:argType="com.dicoding.navigations.Trip" />
+    </fragment>
+</navigation>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: 8. Introduce about BottomNavigationView and its configuration setup -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24" />
+    <item
+        android:id="@+id/myTripsFragment"
+        android:title="My Trips"
+        android:icon="@drawable/baseline_account_circle_24" />
+    <item
+        android:id="@+id/aboutUsFragment"
+        android:title="About Us"
+        android:icon="@drawable/baseline_contact_support_24" />
+
+</menu>
