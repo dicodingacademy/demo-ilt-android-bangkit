@@ -16,7 +16,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: UserAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         getUser()
     }
-
     private fun getUser() {
         val client = ApiConfig.getApiService().getListUsers("1")
 
