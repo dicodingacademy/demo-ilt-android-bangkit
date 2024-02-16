@@ -59,8 +59,7 @@ dependencies {
     androidTestImplementation("androidx.room:room-testing:2.6.1")
     androidTestImplementation("androidx.test:runner:1.5.2")
 
-    // TODO : [0] Add Depdendency for LiveData, ViewModel, and Room Database
-
+    // TODO : [0] Add Dependency for LiveData, ViewModel, and Room Database
     // Livedata
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")

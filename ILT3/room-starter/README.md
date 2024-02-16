@@ -2,9 +2,6 @@
 
 [0] Add Depdendency for LiveData, ViewModel, and Room Database
 ```
-// Livedata
-implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 //room
 implementation("androidx.room:room-runtime:2.6.1")
 ksp("androidx.room:room-compiler:2.6.1")
@@ -15,9 +12,9 @@ ksp("androidx.room:room-compiler:2.6.1")
 @Entity(tableName = "Note")
 @Parcelize
 data class Note(
-@PrimaryKey(autoGenerate = true)
-@ColumnInfo(name = "id")
-var id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0,
 
     @ColumnInfo(name = "title")
     var title: String? = null,
@@ -34,8 +31,8 @@ var id: Int = 0,
 ```
 @Dao
 interface NoteDao {
-@Insert(onConflict = OnConflictStrategy.IGNORE)
-fun insert(note: Note)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(note: Note)
 
     @Update
     fun update(note: Note)
@@ -74,70 +71,140 @@ abstract class NoteRoomDatabase : RoomDatabase() {
 }
 ```
 
-[4] Create Repository to Connect Room Database
+[4] Create Repository to Connect Room Database & [5] Create a function to manage data from the room database.
 ```
-class NoteRepository(application: Application) {
-private val mNotesDao: NoteDao
-private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+class NoteRepository private constructor(
+    private var noteDao: NoteDao,
+    private val executorService: ExecutorService
+) {
 
-    init {
-        val db = NoteRoomDatabase.getDatabase(application)
-        mNotesDao = db.noteDao()
-    }
-
-    fun getAllNotes(): LiveData<List<Note>> = mNotesDao.getAllNotes()
+    fun getAllNotes(): LiveData<List<Note>> = noteDao.getAllNotes()
 
     fun insert(note: Note) {
-        executorService.execute { mNotesDao.insert(note) }
+        executorService.execute { noteDao.insert(note) }
     }
 
     fun delete(note: Note) {
-        executorService.execute { mNotesDao.delete(note) }
+        executorService.execute { noteDao.delete(note) }
     }
 
     fun update(note: Note) {
-        executorService.execute { mNotesDao.update(note) }
+        executorService.execute { noteDao.update(note) }
     }
 }
 ```
 
-[5] Call Repository & [6] Get All Notes from Room Database
+[6] Create an instance of Note Repository as a singleton.
 ```
-class MainViewModel(application: Application) : ViewModel() {
-// TODO - 
-private val mNoteRepository: NoteRepository = NoteRepository(application)
+    companion object {
+        @Volatile
+        private var instance: NoteRepository? = null
+        fun getInstance(
+            noteDao: NoteDao,
+            executorService: ExecutorService
+        ): NoteRepository = instance ?: synchronized(this) {
+            instance ?: NoteRepository(noteDao, executorService)
+        }.also { instance = it }
+    }
+```
 
-    fun getAllNotes(): LiveData<List<Note>> = mNoteRepository.getAllNotes()
+[7] Create an Injection to provide a repository
+```
+object Injection {
+    fun provideRepository(context: Context): NoteRepository {
+        val database = NoteRoomDatabase.getDatabase(context)
+        val dao = database.noteDao()
+        val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+        return NoteRepository.getInstance(dao, executorService)
+    }
 }
 ```
 
-[7] Observe notes from ViewModel & [8] Show notes to RecyclerView
+[8] Get All Notes from Room Database
 ```
-mainViewModel.getAllNotes().observe(this) { noteList ->
+class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
+    fun getAllNotes(): LiveData<List<Note>> = noteRepository.getAllNotes()
+}
+```
+
+[9] Call Another Function form Room Dao
+```
+class NoteAddUpdateViewModel(private val noteRepository: NoteRepository) : ViewModel() {
+
+    fun insert(note: Note) {
+        noteRepository.insert(note)
+    }
+
+    fun update(note: Note) {
+        noteRepository.update(note)
+    }
+
+    fun delete(note: Note) {
+        noteRepository.delete(note)
+    }
+
+}
+```
+
+[10] Create View Model Factory to provide ViewModel
+```
+class ViewModelFactory private constructor(private val noteRepository: NoteRepository) : ViewModelProvider.NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(noteRepository) as T
+        } else if (modelClass.isAssignableFrom(NoteAddUpdateViewModel::class.java)) {
+            return NoteAddUpdateViewModel(noteRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: ViewModelFactory? = null
+
+        @JvmStatic
+        fun getInstance(context: Context): ViewModelFactory {
+            if (INSTANCE == null) {
+                synchronized(ViewModelFactory::class.java) {
+                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
+                }
+            }
+            return INSTANCE as ViewModelFactory
+        }
+    }
+}
+```
+
+[11] Instance ViewModelFactory to obtain ViewModel
+```
+    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[MainViewModel::class.java]
+    }
+```
+
+[12] Observe notes from ViewModel & [13] Show notes to RecyclerView
+```
+val mainViewModel = obtainViewModel(this@MainActivity)
+    mainViewModel.getAllNotes().observe(this) { noteList ->
     if (noteList != null) {
         adapter.setListNotes(noteList)
     }
 }
 ```
 
-[9] Call Another Function form Room Dao
+[14] Instance ViewModelFactory to obtain ViewModel
 ```
-private val noteRepository: NoteRepository = NoteRepository(application)
-
-fun insert(note: Note) {
-    noteRepository.insert(note)
+private fun obtainViewModel(activity: AppCompatActivity): NoteAddUpdateViewModel {
+    val factory = ViewModelFactory.getInstance(activity.application)
+    return ViewModelProvider(activity, factory).get(NoteAddUpdateViewModel::class.java)
 }
 
-fun update(note: Note) {
-    noteRepository.update(note)
-}
-
-fun delete(note: Note) {
-    noteRepository.delete(note)
-}
+noteAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
 ```
 
-[10] Use isEdit to determine which function will be called, whether insert or update.
+[15] Use isEdit to determine which function will be called, whether insert or update.
 ```
 if (isEdit) {
     noteAddUpdateViewModel.update(note as Note)
@@ -151,7 +218,7 @@ if (isEdit) {
 }
 ```
 
-[11] Call the delete function to delete the note.
+[16] Call the delete function to delete the note.
 ```
 noteAddUpdateViewModel.delete(note as Note)
 ```

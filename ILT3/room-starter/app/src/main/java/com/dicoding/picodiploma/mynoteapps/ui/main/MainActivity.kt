@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        val mainViewModel = obtainViewModel(this@MainActivity)
+        // TODO : [11] Instance ViewModelFactory to obtain ViewModel
 
-        // TODO - [7] Observe notes from ViewModel
+        // TODO - [12] Observe notes from ViewModel
 
-        // TODO - [8] Show notes to RecyclerView
+        // TODO - [13] Show notes to RecyclerView
 
         adapter = NoteAdapter()
 
@@ -41,11 +41,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-    }
-
-    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 
     override fun onDestroy() {

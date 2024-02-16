@@ -81,7 +81,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
                         note?.title = title
                         note?.description = description
                     }
-                    // TODO - [10] Use isEdit to determine which function will be called, whether insert or update.
+                    // TODO - [15] Use isEdit to determine which function will be called, whether insert or update.
                     if (isEdit) {
                         noteAddUpdateViewModel.update(note as Note)
                         showToast(getString(R.string.changed))
@@ -139,7 +139,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
-                    // TODO: [11] Call the delete function to delete the note.
+                    // TODO: [16] Call the delete function to delete the note.
                     noteAddUpdateViewModel.delete(note as Note)
                     showToast(getString(R.string.deleted))
                 }
@@ -156,6 +156,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         activityNoteAddUpdateBinding = null
     }
 
+    // TODO : [14] Instance ViewModelFactory to obtain ViewModel
     private fun obtainViewModel(activity: AppCompatActivity): NoteAddUpdateViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory).get(NoteAddUpdateViewModel::class.java)

@@ -9,26 +9,35 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 // TODO : [4] Create Repository to Connect Room Database
-class NoteRepository(application: Application) {
-    private val mNotesDao: NoteDao
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+class NoteRepository private constructor(
+    private var noteDao: NoteDao,
+    private val executorService: ExecutorService
+) {
 
-    init {
-        val db = NoteRoomDatabase.getDatabase(application)
-        mNotesDao = db.noteDao()
-    }
-
-    fun getAllNotes(): LiveData<List<Note>> = mNotesDao.getAllNotes()
+    // TODO : [5] Create a function to manage data from the room database.
+    fun getAllNotes(): LiveData<List<Note>> = noteDao.getAllNotes()
 
     fun insert(note: Note) {
-        executorService.execute { mNotesDao.insert(note) }
+        executorService.execute { noteDao.insert(note) }
     }
 
     fun delete(note: Note) {
-        executorService.execute { mNotesDao.delete(note) }
+        executorService.execute { noteDao.delete(note) }
     }
 
     fun update(note: Note) {
-        executorService.execute { mNotesDao.update(note) }
+        executorService.execute { noteDao.update(note) }
+    }
+
+    // TODO : [6] Create an instance of Note Repository as a singleton.
+    companion object {
+        @Volatile
+        private var instance: NoteRepository? = null
+        fun getInstance(
+            noteDao: NoteDao,
+            executorService: ExecutorService
+        ): NoteRepository = instance ?: synchronized(this) {
+            instance ?: NoteRepository(noteDao, executorService)
+        }.also { instance = it }
     }
 }

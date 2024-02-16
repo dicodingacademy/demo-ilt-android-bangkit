@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.mynoteapps.database.Note
 import com.dicoding.picodiploma.mynoteapps.repository.NoteRepository
 
-class MainViewModel(application: Application) : ViewModel() {
-    // TODO - [5] Call Repository
-    private val mNoteRepository: NoteRepository = NoteRepository(application)
-
-    // TODO - [6] Get All Notes from Room Database
-    fun getAllNotes(): LiveData<List<Note>> = mNoteRepository.getAllNotes()
+class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
+    // TODO - [8] Get All Notes from Room Database
+    fun getAllNotes(): LiveData<List<Note>> = noteRepository.getAllNotes()
 }

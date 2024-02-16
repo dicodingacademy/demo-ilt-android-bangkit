@@ -25,16 +25,17 @@ class NoteAddUpdateActivity : AppCompatActivity() {
     private var note: Note? = null
     private lateinit var noteAddUpdateViewModel: NoteAddUpdateViewModel
 
-    private var _activityNoteAddUpdateBinding: ActivityNoteAddUpdateBinding? = null
-    private val binding get() = _activityNoteAddUpdateBinding
+    private var activityNoteAddUpdateBinding: ActivityNoteAddUpdateBinding? = null
+    private val binding get() = activityNoteAddUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _activityNoteAddUpdateBinding = ActivityNoteAddUpdateBinding.inflate(layoutInflater)
+        activityNoteAddUpdateBinding = ActivityNoteAddUpdateBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        noteAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
+        // TODO : [14] Instance ViewModelFactory to obtain ViewModel
+
 
         note = intent.getParcelableExtra(EXTRA_NOTE)
         if (note != null) {
@@ -81,15 +82,13 @@ class NoteAddUpdateActivity : AppCompatActivity() {
                         note?.title = title
                         note?.description = description
                     }
-                    // TODO - [10] Use isEdit to determine which function will be called, whether insert or update.
+                    // TODO - [15] Use isEdit to determine which function will be called, whether insert or update.
                     if (isEdit) {
-                        //
                         showToast(getString(R.string.changed))
                     } else {
                         note.let { note ->
                             note?.date = DateHelper.getCurrentDate()
                         }
-                        //
                         showToast(getString(R.string.added))
                     }
                     finish()
@@ -139,8 +138,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
-                    // TODO: [11] Call the delete function to delete the note.
-
+                    // TODO: [16] Call the delete function to delete the note.
                     showToast(getString(R.string.deleted))
                 }
                 finish()
@@ -153,11 +151,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _activityNoteAddUpdateBinding = null
+        activityNoteAddUpdateBinding = null
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): NoteAddUpdateViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(NoteAddUpdateViewModel::class.java)
-    }
 }
