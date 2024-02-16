@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Tab Layout</string>
+    <string name="searchbar_hint">Search trip</string>
+    <string name="followers_number">%1$d Followers</string>
+    <string name="following_number">%1$d Following</string>
+
+</resources>
