@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <ImageView
+        android:id="@+id/iv_heroImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ahmad_dahlan" />
+
+    <TextView
+        android:id="@+id/tv_heroName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_heroImage"
+        tools:text="Ahmad Yani" />
+
+    <TextView
+        android:id="@+id/tv_heroDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:justificationMode="inter_word"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_heroName"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Posthumous TNI General Ahmad Yani (also spelled Achmad Yani; born in Purworejo, Central Java, 19 June 1922 – died in Lubang Buaya, Jakarta, 1 October 1965 at the age of 43 years) was the commander of the Indonesian Army, and was killed by members of the 30 September Movement while trying to kidnap him from his home." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

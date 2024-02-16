@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.myrecyclerview
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -60,9 +61,14 @@ class MainActivity : AppCompatActivity() {
 
         // TODO: 6. Show how the adapter that we created be connected with the RecyclerView
         rvHeroes.adapter = listHeroAdapter
+
+        rvHeroes.setHasFixedSize(true)
     }
 
+    // TODO: 7. Briefly show how to send object (Hero data class) using Parcelable to DetailActivity
     private fun showSelectedHero(hero: Hero) {
-        Toast.makeText(this, "You choose: " + hero.name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("HERO_OBJECT", hero)
+        startActivity(intent)
     }
 }

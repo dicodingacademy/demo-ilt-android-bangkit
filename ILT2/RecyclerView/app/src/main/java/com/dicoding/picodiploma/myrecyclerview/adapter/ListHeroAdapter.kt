@@ -19,8 +19,8 @@ class ListHeroAdapter(
     private val listHero: ArrayList<Hero>,
     //using lambda
     private val onItemClick: (Hero) -> Unit
-) :
-    RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     //using interface
@@ -44,7 +44,7 @@ class ListHeroAdapter(
             //using interface
             onItemClickCallback.onItemClicked(listHero[position])
             //using lambda
-            onItemClick(listHero[position])
+//            onItemClick(listHero[position])
         }
 
     }
