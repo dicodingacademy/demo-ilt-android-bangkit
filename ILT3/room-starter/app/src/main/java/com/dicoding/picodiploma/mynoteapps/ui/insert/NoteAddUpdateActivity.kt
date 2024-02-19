@@ -1,9 +1,11 @@
 package com.dicoding.picodiploma.mynoteapps.ui.insert
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -37,11 +39,11 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         // TODO : [14] Instance ViewModelFactory to obtain ViewModel
 
 
-        note = intent.getParcelableExtra(EXTRA_NOTE)
-        if (note != null) {
-            isEdit = true
+        note = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("DATA", Note::class.java)
         } else {
-            note = Note()
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(EXTRA_NOTE)
         }
 
         val actionBarTitle: String
@@ -95,6 +97,10 @@ class NoteAddUpdateActivity : AppCompatActivity() {
                 }
             }
         }
+
+        onBackPressedDispatcher.addCallback(this) {
+            showAlertDialog(ALERT_DIALOG_CLOSE)
+        }
     }
 
     private fun showToast(message: String) {
@@ -114,10 +120,6 @@ class NoteAddUpdateActivity : AppCompatActivity() {
             android.R.id.home -> showAlertDialog(ALERT_DIALOG_CLOSE)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        showAlertDialog(ALERT_DIALOG_CLOSE)
     }
 
     private fun showAlertDialog(type: Int) {
