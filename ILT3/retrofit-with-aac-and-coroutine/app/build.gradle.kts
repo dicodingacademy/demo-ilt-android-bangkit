@@ -60,6 +60,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0") //viewModelScope
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0") //liveData
 
-    // TODO : [0] KTX
+    // TODO : [0] Add Dependency for KTX
     implementation("androidx.activity:activity-ktx:1.8.2") // Activity KTX
 }

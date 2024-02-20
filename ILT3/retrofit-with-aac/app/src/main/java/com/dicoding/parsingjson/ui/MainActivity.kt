@@ -23,20 +23,20 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_users)
 
-        // TODO : [9] Don't forget to add a ProgressBar to your layout
+        // TODO : [8] Don't forget to add a ProgressBar to your layout
         val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // TODO : [8] Instance ViewModel using MainViewModel Factory.
+        // TODO : [7] Instance ViewModel using MainViewModel Factory.
         val mainViewModel = ViewModelProvider(this, MainViewModel.Factory).get(MainViewModel::class.java)
 
-        // TODO : [10] Call Get User from ViewModel
+        // TODO : [9] Call Get User from ViewModel
         mainViewModel.getUser()
 
-        // TODO : [11] Observe data
+        // TODO : [10] Observe data
         mainViewModel.isLoading.observe(this) { loadingState ->
             if (loadingState) {
                 progressBar.visibility = View.VISIBLE

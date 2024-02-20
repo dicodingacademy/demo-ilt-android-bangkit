@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO : [2] Create Repository to Manage Network Data Source.
+// TODO : [1] Create Repository to Manage Network Data Source.
 class UserRepository private constructor(
     private val apiService: ApiService
 ) {
@@ -23,7 +23,7 @@ class UserRepository private constructor(
     private val _isError = MutableLiveData<String>()
     val isError: LiveData<String> = _isError
 
-    // TODO : [3] Move getUser from Activity to Repository and give some improvement
+    // TODO : [2] Move getUser from Activity to Repository and give some improvement
     fun getUser() {
         _isLoading.value = true
         val client = apiService.getListUsers("1")
@@ -50,7 +50,7 @@ class UserRepository private constructor(
         })
     }
 
-    // TODO : [4] Create Singleton Initialization for this Class Repository
+    // TODO : [3] Create Singleton Initialization for this Class Repository
     companion object {
         @Volatile
         private var instance: UserRepository? = null
