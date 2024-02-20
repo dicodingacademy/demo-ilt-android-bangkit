@@ -31,6 +31,7 @@ android {
         }
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
     compileOptions {
@@ -67,10 +68,10 @@ dependencies {
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //coroutine support
-    implementation("androidx.lifecycle:lifecycle-view-model-ktx:2.6.2") //viewModelScope
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0") //viewModelScope
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0") //liveData
     implementation("androidx.room:room-ktx:2.6.1")
 }
