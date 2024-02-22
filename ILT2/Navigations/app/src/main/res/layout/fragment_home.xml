@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment">
+
+    <ImageView
+        android:id="@+id/iv_userProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/baseline_account_color_circle_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi Michael!"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/iv_userProfile"
+        app:layout_constraintTop_toTopOf="@id/iv_userProfile"
+        app:layout_constraintBottom_toTopOf="@id/tv_userBalance"/>
+
+    <TextView
+        android:id="@+id/tv_userBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your current balance: $1000"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/tv_userName"
+        app:layout_constraintTop_toBottomOf="@id/tv_userName"
+        app:layout_constraintBottom_toBottomOf="@id/iv_userProfile"/>
+
+    <TextView
+        android:id="@+id/tv_overview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explore Trip in Indonesia:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_userProfile" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_exploreTrips"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="15dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_overview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/trip_item_layout"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:spanCount="3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

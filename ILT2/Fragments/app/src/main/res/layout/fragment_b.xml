@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#11C5C6"
+    tools:context=".FragmentB">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvFragmentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment B"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tilData"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilData"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Input data to Fragment A"
+            android:layout_marginVertical="25dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFragmentName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnMoveToFragmentA">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnMoveToFragmentA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To Fragment A"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilData"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

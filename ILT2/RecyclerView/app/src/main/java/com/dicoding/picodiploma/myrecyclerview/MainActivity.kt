@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.myrecyclerview
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
@@ -22,35 +23,31 @@ class MainActivity : AppCompatActivity() {
         rvHeroes = findViewById(R.id.rv_heroes)
         rvHeroes.setHasFixedSize(true)
 
-        list.addAll(listHeroes)
+        // TODO: 1. Data source of the Recycler View
+        list.addAll(getListOfHeroes())
         showRecyclerList()
     }
 
-    private val listHeroes: ArrayList<Hero>
-        get() {
-            val dataName = resources.getStringArray(R.array.data_name)
-            val dataDescription = resources.getStringArray(R.array.data_description)
-            val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
-            val listHero = ArrayList<Hero>()
-            for (i in dataName.indices) {
-                val hero = Hero(dataName[i],dataDescription[i], dataPhoto.getResourceId(i, -1))
-                listHero.add(hero)
-            }
-            return listHero
+    // TODO: 1. Data source of the Recycler View
+    private fun getListOfHeroes(): ArrayList<Hero>{
+        val dataName = resources.getStringArray(R.array.data_name)
+        val dataDescription = resources.getStringArray(R.array.data_description)
+        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+        val listHero = ArrayList<Hero>()
+        for (i in dataName.indices) {
+            val hero = Hero(dataName[i],dataDescription[i], dataPhoto.getResourceId(i, -1))
+            listHero.add(hero)
         }
+        return listHero
+    }
 
     private fun showRecyclerList() {
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            rvHeroes.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            rvHeroes.layoutManager = LinearLayoutManager(this)
-        }
 
+        // TODO: 2. Show Adapter instantiation and how we pass the Data Source into it
         //using lambda
         val listHeroAdapter = ListHeroAdapter(list){ data ->
             showSelectedHero(data)
         }
-        rvHeroes.adapter = listHeroAdapter
 
         //using interface
         listHeroAdapter.setOnItemClickCallback(object : ListHeroAdapter.OnItemClickCallback {
@@ -58,9 +55,20 @@ class MainActivity : AppCompatActivity() {
                 showSelectedHero(data)
             }
         })
+
+        // TODO: 5. Show the Layout Manager of the RecycerView
+        rvHeroes.layoutManager = LinearLayoutManager(this)
+
+        // TODO: 6. Show how the adapter that we created be connected with the RecyclerView
+        rvHeroes.adapter = listHeroAdapter
+
+        rvHeroes.setHasFixedSize(true)
     }
 
+    // TODO: 7. Briefly show how to send object (Hero data class) using Parcelable to DetailActivity
     private fun showSelectedHero(hero: Hero) {
-        Toast.makeText(this, "Kamu memilih " + hero.name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("HERO_OBJECT", hero)
+        startActivity(intent)
     }
 }

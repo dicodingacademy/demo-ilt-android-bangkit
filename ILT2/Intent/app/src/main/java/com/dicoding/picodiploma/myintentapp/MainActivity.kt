@@ -1,11 +1,13 @@
 package com.dicoding.picodiploma.myintentapp
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (result.resultCode == MoveForResultActivity.RESULT_CODE && result.data != null) {
             val selectedValue =
                 result.data?.getIntExtra(MoveForResultActivity.EXTRA_SELECTED_VALUE, 0)
-            tvResult.text = "Hasil : $selectedValue"
+            tvResult.text = "Result : $selectedValue"
         }
     }
 
@@ -38,6 +40,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btnDialPhone: Button = findViewById(R.id.btn_dial_number)
         btnDialPhone.setOnClickListener(this)
+
+        val btnOpenAnotherApp: Button = findViewById(R.id.btn_open_another_app)
+        btnOpenAnotherApp.setOnClickListener(this)
 
         val btnMoveForResult: Button = findViewById(R.id.btn_move_for_result)
         btnMoveForResult.setOnClickListener(this)
@@ -86,7 +91,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 /*
                 Intent action untuk menjalankan action dial
                  */
-                val phoneNumber = "081210841382"
+                val phoneNumber = "081000000000"
                 val dialPhoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
                 startActivity(dialPhoneIntent)
             }
@@ -100,6 +105,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Intent(this@MainActivity, MoveForResultActivity::class.java)
                 resultLauncher.launch(moveForResultIntent)
             }
+
+            R.id.btn_open_another_app -> {
+                val openAnotherApp = Intent(Intent.ACTION_MAIN)
+                openAnotherApp.setPackage("com.dico.learn")
+
+                try {
+                    startActivity(openAnotherApp)
+                } catch (e: ActivityNotFoundException){
+                    Toast.makeText(this, "Unable to open Dico Learn app", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 }

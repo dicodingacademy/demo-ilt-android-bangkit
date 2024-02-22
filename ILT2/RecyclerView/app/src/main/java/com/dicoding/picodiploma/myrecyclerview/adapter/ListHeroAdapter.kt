@@ -14,12 +14,13 @@ import java.util.*
  * Created by sidiqpermana on 10/28/16.
  */
 
+// TODO: 3. Explain about the Adapter class structure - all the required method to be created
 class ListHeroAdapter(
     private val listHero: ArrayList<Hero>,
     //using lambda
     private val onItemClick: (Hero) -> Unit
-) :
-    RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     //using interface
@@ -28,6 +29,7 @@ class ListHeroAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+        // TODO: 4. Show the Layout Item
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
         return ListViewHolder(view)
@@ -42,7 +44,7 @@ class ListHeroAdapter(
             //using interface
             onItemClickCallback.onItemClicked(listHero[position])
             //using lambda
-            onItemClick(listHero[position])
+//            onItemClick(listHero[position])
         }
 
     }
