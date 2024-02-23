@@ -40,74 +40,74 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-//        val imageClassifierHelper = ImageClassifierHelper(
-//            context = this,
-//            classifierListener = object : ImageClassifierHelper.ClassifierListener {
-//                override fun onError(error: String) {
-//                    runOnUiThread {
-//                        Toast.makeText(this@CameraActivity, error, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//
-//                override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
-//                    runOnUiThread {
-//                        results?.let { it ->
-//                            if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
-//                                println(it)
-//                                val sortedCategories =
-//                                    it[0].categories.sortedByDescending { it?.score }
-//                                val displayResult = sortedCategories.joinToString("\n") {
-//                                    val score = NumberFormat.getPercentInstance().format(it.score)
-//                                    "${it.label} $score"
-//                                }
-//                                binding.resultTextView.text = displayResult
-//                                binding.tvInferenceTime.text = "$inferenceTime ms"
-//                            } else {
-//                                binding.resultTextView.text = ""
-//                                binding.tvInferenceTime.text = ""
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        )
-
-        //TODO 10 : Init ObjectDetectorHelper and show bounding box
-        val objectDetectorHelper = ObjectDetectorHelper(
+        val imageClassifierHelper = ImageClassifierHelper(
             context = this,
-            classifierListener = object : ObjectDetectorHelper.ClassifierListener {
+            classifierListener = object : ImageClassifierHelper.ClassifierListener {
                 override fun onError(error: String) {
                     runOnUiThread {
                         Toast.makeText(this@CameraActivity, error, Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onResults(
-                    results: List<Detection>?,
-                    inferenceTime: Long,
-                    imageHeight: Int,
-                    imageWidth: Int
-                ) {
+                override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
                     runOnUiThread {
-                        results?.let {
+                        results?.let { it ->
                             if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
                                 println(it)
-                                // show bounding box
-                                binding.overlay.setResults(
-                                    results, imageHeight, imageWidth
-                                )
+                                val sortedCategories =
+                                    it[0].categories.sortedByDescending { it?.score }
+                                val displayResult = sortedCategories.joinToString("\n") {
+                                    val score = NumberFormat.getPercentInstance().format(it.score)
+                                    "${it.label} $score"
+                                }
+                                binding.resultTextView.text = displayResult
+                                binding.tvInferenceTime.text = "$inferenceTime ms"
                             } else {
-                                binding.overlay.clear()
+                                binding.resultTextView.text = ""
+                                binding.tvInferenceTime.text = ""
                             }
                         }
                     }
-
-                    // force a redraw
-                    binding.overlay.invalidate()
                 }
-
             }
         )
+
+        //TODO 10 : Init ObjectDetectorHelper and show bounding box
+//        val objectDetectorHelper = ObjectDetectorHelper(
+//            context = this,
+//            classifierListener = object : ObjectDetectorHelper.ClassifierListener {
+//                override fun onError(error: String) {
+//                    runOnUiThread {
+//                        Toast.makeText(this@CameraActivity, error, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//
+//                override fun onResults(
+//                    results: List<Detection>?,
+//                    inferenceTime: Long,
+//                    imageHeight: Int,
+//                    imageWidth: Int
+//                ) {
+//                    runOnUiThread {
+//                        results?.let {
+//                            if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
+//                                println(it)
+//                                // show bounding box
+//                                binding.overlay.setResults(
+//                                    results, imageHeight, imageWidth
+//                                )
+//                            } else {
+//                                binding.overlay.clear()
+//                            }
+//                        }
+//                    }
+//
+//                    // force a redraw
+//                    binding.overlay.invalidate()
+//                }
+//
+//            }
+//        )
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
@@ -124,8 +124,8 @@ class CameraActivity : AppCompatActivity() {
                 .also {
                     it.setAnalyzer(Executors.newSingleThreadExecutor()) { image: ImageProxy ->
                         // TODO 11 : change to objectDetectorHelper
-//                        imageClassifierHelper.classifyLiveImage(image)
-                        objectDetectorHelper.classifyLiveImage(image)
+                        imageClassifierHelper.classifyLiveImage(image)
+//                        objectDetectorHelper.classifyLiveImage(image)
                     }
                 }
 
