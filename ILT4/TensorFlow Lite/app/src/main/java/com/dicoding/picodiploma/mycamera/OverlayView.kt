@@ -44,7 +44,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     }
 
     fun setResults(
-        detectionResults: MutableList<Detection>,
+        detectionResults: List<Detection>,
         imageHeight: Int,
         imageWidth: Int,
     ) {
