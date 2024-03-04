@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.mycamera
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -17,7 +16,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.dicoding.picodiploma.mycamera.databinding.ActivityCameraBinding
 import org.tensorflow.lite.task.vision.classifier.Classifications
-import org.tensorflow.lite.task.vision.detector.Detection
 import java.text.NumberFormat
 import java.util.concurrent.Executors
 
@@ -115,19 +113,18 @@ class CameraActivity : AppCompatActivity() {
             val resolutionSelector = ResolutionSelector.Builder()
                 .setAspectRatioStrategy(AspectRatioStrategy.RATIO_16_9_FALLBACK_AUTO_STRATEGY)
                 .build()
-            val imageAnalyzer = ImageAnalysis.Builder()
+            val imageAnalysis = ImageAnalysis.Builder()
                 .setResolutionSelector(resolutionSelector)
                 .setTargetRotation(binding.viewFinder.display.rotation)
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                 .build()
-                .also {
-                    it.setAnalyzer(Executors.newSingleThreadExecutor()) { image: ImageProxy ->
-                        // TODO 11 : change to objectDetectorHelper
-                        imageClassifierHelper.classifyLiveImage(image)
-//                        objectDetectorHelper.classifyLiveImage(image)
-                    }
-                }
+            imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor()) { image: ImageProxy ->
+                // TODO 11 : change to objectDetectorHelper
+                imageClassifierHelper.classifyLiveImage(image)
+//                objectDetectorHelper.classifyLiveImage(image)
+            }
+
 
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
             val preview = Preview.Builder().build().also {
@@ -138,7 +135,7 @@ class CameraActivity : AppCompatActivity() {
                 this,
                 cameraSelector,
                 preview,
-                imageAnalyzer
+                imageAnalysis
             )
         }, ContextCompat.getMainExecutor(this))
     }
