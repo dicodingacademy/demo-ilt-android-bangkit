@@ -9,9 +9,9 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 
 class MyButton
-    //Opsi selain definisi constructor satu per satu
-    //@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatButton(context, attrs) {
-: AppCompatButton {
+//Opsi selain definisi constructor satu per satu
+//@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatButton(context, attrs) {
+    : AppCompatButton {
 
     private var enabledBackground: Drawable
     private var disabledBackground: Drawable
