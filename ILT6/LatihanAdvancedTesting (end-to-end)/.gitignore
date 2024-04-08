@@ -1,6 +1,5 @@
 # Project exclude paths
 /.gradle/
-/local.properties
 .idea/.name
 .idea/compiler.xml
 .idea/gradle.xml

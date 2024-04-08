@@ -7,6 +7,7 @@ import android.webkit.WebViewClient
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
 import com.dicoding.newsapp.R
 import com.dicoding.newsapp.data.local.entity.NewsEntity
 import com.dicoding.newsapp.databinding.ActivityNewsDetailBinding
@@ -27,7 +28,16 @@ class NewsDetailActivity : AppCompatActivity() {
         binding = ActivityNewsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        newsDetail = intent.getParcelableExtra<NewsEntity>(NEWS_DATA) as NewsEntity
+        with(IntentCompat.getParcelableExtra(intent, NEWS_DATA, NewsEntity::class.java)){
+            if (this != null){
+                newsDetail = this
+                supportActionBar?.title = newsDetail.title
+                binding.webView.webViewClient = WebViewClient()
+                binding.webView.loadUrl(newsDetail.url.toString())
+
+                viewModel.setNewsData(newsDetail)
+            }
+        }
 
         supportActionBar?.title = newsDetail.title
         binding.webView.webViewClient = WebViewClient()
@@ -39,15 +49,17 @@ class NewsDetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
         this.menu = menu
-        viewModel.bookmarkStatus.observe(this, { status ->
+        viewModel.bookmarkStatus.observe(this) { status ->
             setBookmarkState(status)
-        })
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_bookmark) {
-            viewModel.changeBookmark(newsDetail)
+            if (this::newsDetail.isInitialized){
+                viewModel.changeBookmark(newsDetail)
+            }
             return true
         }
         return super.onOptionsItemSelected(item)

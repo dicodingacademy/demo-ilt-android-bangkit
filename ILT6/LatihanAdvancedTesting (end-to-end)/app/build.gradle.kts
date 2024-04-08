@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.android.application")
+    id("kotlin-android")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
 }
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.dicoding.newsapp"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -24,83 +24,79 @@ android {
             setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
         }
     }
-
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    buildFeatures {
-        viewBinding = true
+    kotlinOptions {
+        jvmTarget = "17"
     }
-
-    packagingOptions {
+    packaging {
         resources {
             excludes += listOf("META-INF/AL2.0", "META-INF/LGPL2.1")
         }
     }
-
     testOptions {
         animationsDisabled = true
     }
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
 dependencies {
     //desugaring
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     //ui
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.recyclerview)
-    implementation(libs.constraintlayout)
-    implementation(libs.material)
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.android.material:material:1.10.0")
 
-    implementation(libs.glide)
-    implementation(libs.viewpager2)
-    implementation(libs.fragment.ktx)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     //testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //mockito
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.inline)
+    testImplementation("org.mockito:mockito-core:5.6.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
 
     //special testing
-    testImplementation(libs.core.testing) // InstantTaskExecutorRule
-    testImplementation(libs.kotlinx.coroutines.test) //TestCoroutineDispatcher
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
 
     //special instrumentation testing
-    androidTestImplementation(libs.core.testing) // InstantTaskExecutorRule
-    androidTestImplementation(libs.kotlinx.coroutines.test) //TestCoroutineDispatcher
-    debugImplementation(libs.fragment.testing) //launchFragmentInContainer
-    androidTestImplementation(libs.espresso.contrib) //RecyclerViewActions
-    androidTestImplementation(libs.espresso.intents)
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestCoroutineDispatcher
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2") //launchFragmentInContainer
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:3.0.2") //RecyclerViewActions
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
 
     //mock web server
-    androidTestImplementation(libs.mockwebserver)
-    androidTestImplementation(libs.okhttp.tls)
-    implementation(libs.espresso.idling.resource)
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
+    implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
 
     //room
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
+    implementation("androidx.room:room-runtime:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
 
     //retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.logging.interceptor)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     //coroutine support
-    implementation(libs.androidx.lifecycle.viewmodel.ktx) //viewModelScope
-    implementation(libs.androidx.lifecycle.livedata.ktx) //liveData
-    implementation(libs.androidx.room.ktx)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2") //viewModelScope
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2") //liveData
 }

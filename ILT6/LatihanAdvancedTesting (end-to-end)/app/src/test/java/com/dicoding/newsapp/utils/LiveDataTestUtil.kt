@@ -1,4 +1,4 @@
-package com.dicoding.newsapp
+package com.dicoding.newsapp.utils
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -16,8 +16,8 @@ fun <T> LiveData<T>.getOrAwaitValue(
     var data: T? = null
     val latch = CountDownLatch(1)
     val observer = object : Observer<T> {
-        override fun onChanged(value: T) {
-            data = value
+        override fun onChanged(o: T) {
+            data = o
             latch.countDown()
             this@getOrAwaitValue.removeObserver(this)
         }
@@ -38,4 +38,14 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     @Suppress("UNCHECKED_CAST")
     return data as T
+}
+
+suspend fun <T> LiveData<T>.observeForTesting(block: suspend  () -> Unit) {
+    val observer = Observer<T> { }
+    try {
+        observeForever(observer)
+        block()
+    } finally {
+        removeObserver(observer)
+    }
 }

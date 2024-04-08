@@ -9,10 +9,10 @@ import com.dicoding.newsapp.data.local.room.NewsDao
 import com.dicoding.newsapp.data.remote.retrofit.ApiService
 import com.dicoding.newsapp.utils.wrapEspressoIdlingResource
 
-class NewsRepository (
+class NewsRepository(
     private val apiService: ApiService,
     private val newsDao: NewsDao
-    ) {
+) {
     fun getHeadlineNews(): LiveData<Result<List<NewsEntity>>> = liveData {
         emit(Result.Loading)
         wrapEspressoIdlingResource {
@@ -29,7 +29,7 @@ class NewsRepository (
                 }
                 emit(Result.Success(newsList))
             } catch (e: Exception) {
-                Log.d(TAG, "getHeadlineNews: ${e.message.toString()} ")
+                Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
                 emit(Result.Error(e.message.toString()))
             }
         }
@@ -61,7 +61,5 @@ class NewsRepository (
             instance ?: synchronized(this) {
                 instance ?: NewsRepository(apiService, newsDao)
             }.also { instance = it }
-
-        private val TAG = NewsRepository::class.java.simpleName
     }
 }
