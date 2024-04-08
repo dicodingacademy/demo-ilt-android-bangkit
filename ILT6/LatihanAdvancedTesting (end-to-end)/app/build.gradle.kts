@@ -16,7 +16,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        buildConfigField("String", "API_KEY", ""db874e166f4c473e9132d19a45135274"")
+        buildConfigField("String", "API_KEY", "\"db874e166f4c473e9132d19a45135274\"")
     }
     buildTypes {
         named("release") {
@@ -27,8 +27,8 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
@@ -41,14 +41,22 @@ android {
         }
     }
 
-    sourceSets {
-        androidTest.java.srcDirs += "src/sharedTest/java"
-        test.java.srcDirs += "src/sharedTest/java"
+    sourceSets.getByName("androidTest") {
+        java.srcDir("src/main/java")
+        java.srcDir("src/main/kotlin")
+    }
+    sourceSets.getByName("test") {
+        java.srcDir("src/test/java")
+        java.srcDir("src/test/kotlin")
     }
 
     testOptions {
         animationsDisabled = true
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -84,12 +92,12 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test) //TestCoroutineDispatcher
     debugImplementation(libs.fragment.testing) //launchFragmentInContainer
     androidTestImplementation(libs.espresso.contrib) //RecyclerViewActions
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation(libs.espresso.intents)
 
     //mock web server
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.okhttp.tls)
-    implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+    implementation(libs.espresso.idling.resource)
 
     //room
     implementation(libs.androidx.room.runtime)

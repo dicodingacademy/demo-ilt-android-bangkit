@@ -8,6 +8,8 @@ coreTesting = "2.2.0"
 desugar_jdk_libs = "2.0.4"
 espressoContrib = "3.0.2"
 espressoCore = "3.5.1"
+espressoIntents = "3.5.1"
+espressoIdlingResource = "3.5.1"
 fragmentKtx = "1.6.2"
 glide = "4.16.0"
 junit = "4.13.2"
@@ -40,6 +42,8 @@ core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 espresso-contrib = { module = "com.android.support.test.espresso:espresso-contrib", version.ref = "espressoContrib" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoIntents" }
+espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espressoIdlingResource" }
 ext-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentKtx" }
