@@ -41,15 +41,6 @@ android {
         }
     }
 
-    sourceSets.getByName("androidTest") {
-        java.srcDir("src/main/java")
-        java.srcDir("src/main/kotlin")
-    }
-    sourceSets.getByName("test") {
-        java.srcDir("src/test/java")
-        java.srcDir("src/test/kotlin")
-    }
-
     testOptions {
         animationsDisabled = true
     }
