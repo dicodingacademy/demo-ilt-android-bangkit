@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Firebase Chat</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="web_client_id">829724428149-1e2h9rvc8m3j4g8c4sq9hn61e9u9b6pp.apps.googleusercontent.com</string>
+
+    <!-- TODO [4] Next, add the following text to res/values/strings.xml first.-->
+
+</resources>
