@@ -58,6 +58,5 @@ dependencies {
     implementation(libs.viewmodel.ktx)
     implementation(libs.room.ktx)
     ksp(libs.room.ksp)
-
-    // TODO [5] Add the lifecycle-livedata-ktx library to build.gradle(module: app) to use KTX on Transformation LiveData.
+    implementation(libs.livedata.ktx)
 }

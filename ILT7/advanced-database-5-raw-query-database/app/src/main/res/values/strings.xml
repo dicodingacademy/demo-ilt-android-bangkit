@@ -6,6 +6,8 @@
     <string name="many_to_many">Many to Many</string>
     <string name="show_all_data">Show All Data</string>
 
-    <!-- TODO    [8] Add resource strings in the strings.xml file-->
-
+    <string name="sort">Sort</string>
+    <string name="ascending">A-Z</string>
+    <string name="descending">Z-A</string>
+    <string name="random">Random</string>
 </resources>

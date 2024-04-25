@@ -8,10 +8,14 @@ import com.dicoding.mystudentdata.database.StudentDao
 import com.dicoding.mystudentdata.database.StudentWithCourse
 import com.dicoding.mystudentdata.database.UniversityAndStudent
 import com.dicoding.mystudentdata.helper.InitialDataSource
+import com.dicoding.mystudentdata.helper.SortType
+import com.dicoding.mystudentdata.helper.SortUtils
 
 class StudentRepository(private val studentDao: StudentDao) {
-    // TODO [4] If you add parameters to the method, you also need to add parameters to the StudentRepository class.
-    fun getAllStudent(): LiveData<List<Student>> = studentDao.getAllStudent()
+    fun getAllStudent(sortType: SortType): LiveData<List<Student>> {
+        val query = SortUtils.getSortedQuery(sortType)
+        return studentDao.getAllStudent(query)
+    }
 
     fun getAllStudentAndUniversity(): LiveData<List<StudentAndUniversity>> = studentDao.getAllStudentAndUniversity()
 
