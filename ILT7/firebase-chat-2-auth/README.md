@@ -1,12 +1,15 @@
-[1] Ensure your project is connected to Firebase Realtime Database and don't forget to update the google-services.json file.
+[1] Ensure your project is connected to Firebase Realtime Database and don't forget to update the google-services.json file.  
 [2] Add the required libraries, such as Firebase Realtime Database, Firebase UI, and Glide.
 
-`    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
+```
+    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("com.firebaseui:firebase-ui-database:8.0.0")
-    implementation("com.github.bumptech.glide:glide:4.15.1")`
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+```
 
 [3] Add a data model to hold user message information.
-`@IgnoreExtraProperties
+```
+@IgnoreExtraProperties
 data class Message(
     val text: String? = null,
     val name: String? = null,
@@ -15,14 +18,18 @@ data class Message(
 ){
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.
-}`
+}
+```
 
 [4] Next, add the following text to res/values/strings.xml first.
-`<string name="send_success">Berhasil terkirim</string>
-<string name="send_error">Gagal terkirim</string>`
+```
+<string name="send_success">Berhasil terkirim</string>
+<string name="send_error">Gagal terkirim</string>
+```
 
 [5] Initialize the database and perform the insert process when the submit button is clicked.
-`class MainActivity : AppCompatActivity() {
+```
+class MainActivity : AppCompatActivity() {
    ...
 
     private lateinit var db: FirebaseDatabase
@@ -56,10 +63,12 @@ data class Message(
     companion object {
         const val MESSAGES_CHILD = "messages"
     }
-}`
+}
+```
 
 [6] Create a FirebaseMessageAdapter to display each message in a RecyclerView.
-`class FirebaseMessageAdapter(
+```
+class FirebaseMessageAdapter(
   options: FirebaseRecyclerOptions<Message>,
   private val currentUserName: String?
 ) : FirebaseRecyclerAdapter<Message, FirebaseMessageAdapter.MessageViewHolder>(options) {
@@ -101,11 +110,13 @@ data class Message(
             }
         }
     }
-}`
+}
+```
 
 [7] Initialize Firebase Realtime Database and fetch data to display in a RecyclerView.
 
-`    private lateinit var adapter: FirebaseMessageAdapter
+```
+    private lateinit var adapter: FirebaseMessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ...
@@ -128,4 +139,5 @@ data class Message(
     public override fun onPause() {
         adapter.stopListening()
         super.onPause()
-    }`
+    }
+```

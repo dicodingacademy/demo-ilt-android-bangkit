@@ -1,8 +1,9 @@
 
-[1] Connect Firebase Auth to Project. Ensure you have added the **google-services.json** file.
-[2] Make sure you add the library, include add library Firebase, Credential Manager API, and Lifecycle. Add code for Toml file.
-`[versions]
-# TODO Dependency Version
+[1] Connect Firebase Auth to Project. Ensure you have added the **google-services.json** file. <br>
+[2] Make sure you add the library, include add library Firebase, Credential Manager API, and Lifecycle. Add code for Toml file. <br>
+```
+[versions]
+#TODO Dependency Version
 googleServices = "4.4.1"
 credentials = "1.2.2"
 googleid = "1.1.0"
@@ -10,7 +11,7 @@ lifecycleRuntime = "2.7.0"
 firebaseBom = "32.8.1"
 
 [libraries]
-# TODO Dependency Libraries
+#TODO Dependency Libraries
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
@@ -20,20 +21,24 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 
 [bundles]
-# TODO Add Bundles Dependency
+#TODO Add Bundles Dependency
 firebase = [ "firebase-auth-ktx" ]
-creadential = [ "credentials", "credentials-play-services-auth", "googleid"]`
+creadential = [ "credentials", "credentials-play-services-auth", "googleid"]
+```
 
-[3] Add Dependency at build.gradle.kts (Project: My_Firebase_Chat)
-`// TODO Add Google Service
+[3] Add Dependency at build.gradle.kts (Project: My_Firebase_Chat) <br>
+```
+// TODO Add Google Service
 buildscript { 
   dependencies { 
     classpath(libs.google.services)
   }
-}`
+}
+```
 
-[4] Add Dependency at build.gradle.kts (Module :app)
-`plugins {
+[4] Add Dependency at build.gradle.kts (Module :app) <br>
+```
+plugins {
   ...
   // Add Plugin
   id("com.google.gms.google-services")
@@ -45,20 +50,24 @@ dependencies {
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.credential)
     implementation(libs.lifecycle.runtime)
-}`
+}
+```
 
-[5] Add Sign In Button in activity_login.xml.
-`<com.google.android.gms.common.SignInButton
+[5] Add Sign In Button in activity_login.xml. <br>
+```
+<com.google.android.gms.common.SignInButton
 android:id="@+id/signInButton"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 app:layout_constraintBottom_toBottomOf="parent"
 app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent" />`
+app:layout_constraintTop_toTopOf="parent" />
+```
 
-[6] Instance Firebase Auth on LoginActivity.
-`private lateinit var auth: FirebaseAuth
+[6] Instance Firebase Auth on LoginActivity. <br>
+```
+private lateinit var auth: FirebaseAuth
 override fun onCreate(savedInstanceState: Bundle?) {
   ...
   // Initialize Firebase Auth
@@ -68,10 +77,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
   binding.signInButton.setOnClickListener {
     signIn()
   } 
-}`
+}
+```
 
-[7] Configuration for credentialManager
-`val credentialManager = CredentialManager.create(this) //import from androidx.CredentialManager
+[7] Configuration for credentialManager <br>
+```
+val credentialManager = CredentialManager.create(this) //import from androidx.CredentialManager
 
 val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
@@ -92,10 +103,12 @@ lifecycleScope.launch {
   } catch (e: GetCredentialException) { //import from androidx.CredentialManager
     Log.d("Error", e.message.toString())
   }
-}`
+}
+```
 
-[8] Handle the successfully returned credential.
-`private fun handleSignIn(result: GetCredentialResponse) { 
+[8] Handle the successfully returned credential. <br>
+```
+private fun handleSignIn(result: GetCredentialResponse) { 
   // Handle the successfully returned credential. 
   when (val credential = result.credential) { 
     is CustomCredential -> {
@@ -116,10 +129,12 @@ lifecycleScope.launch {
       Log.e(TAG, "Unexpected type of credential")
     }
   }
-}`
+}
+```
 
-[9]  Sign in with Google using id Token from Credential
-`val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
+[9]  Sign in with Google using id Token from Credential <br>
+```
+val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
 auth.signInWithCredential(credential)
   .addOnCompleteListener(this) { task ->
     if (task.isSuccessful) {
@@ -132,10 +147,12 @@ auth.signInWithCredential(credential)
       Log.w(TAG, "signInWithCredential:failure", task.exception)
       updateUI(null)
     } 
-}`
+}
+```
 
-[10] Check if user is signed in (non-null) and update UI accordingly.
-`override fun onStart() {
+[10] Check if user is signed in (non-null) and update UI accordingly. <br>
+```
+override fun onStart() {
   super.onStart()
   val currentUser = auth.currentUser
   updateUI(currentUser)
@@ -146,10 +163,12 @@ private fun updateUI(currentUser: FirebaseUser?) {
     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
     finish()
   }
-}`
+}
+```
 
-[11] Instance Firebase Auth and check currentUser on MainActivity.
-`private lateinit var binding: ActivityMainBinding
+[11] Instance Firebase Auth and check currentUser on MainActivity. <br>
+```
+private lateinit var binding: ActivityMainBinding
 override fun onCreate(savedInstanceState: Bundle?) { 
   super.onCreate(savedInstanceState)
   ...
@@ -164,10 +183,15 @@ override fun onCreate(savedInstanceState: Bundle?) {
     finish()
     return
   }
-}`
+}
+```
 
-[12] Add signOut() to logout feature.
-`auth.signOut()`
+[12] Add signOut() to logout feature. <br>
+```
+auth.signOut()
+```
  
-[13] Add Web client id from //from https://console.firebase.google.com/project/[your_project_firebase_id]/authentication/providers
-`<string name="web_client_id">829724428149-1e2h9rvc8m3j4g8c4sq9hn61e9u9b6pp.apps.googleusercontent.com</string>`
+[13] Add Web client id from //from https://console.firebase.google.com/project/[your_project_firebase_id]/authentication/providers <br>
+```
+<string name="web_client_id">829724428149-1e2h9rvc8m3j4g8c4sq9hn61e9u9b6pp.apps.googleusercontent.com</string>
+```
