@@ -12,15 +12,6 @@ import com.dicoding.mystudentdata.database.UniversityAndStudent
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val studentRepository: StudentRepository) : ViewModel() {
-
-    // TODO [1] Delete insertAllData function from MainViewModel
-    init {
-        insertAllData()
-    }
-    private fun insertAllData() = viewModelScope.launch {
-        studentRepository.insertAllData()
-    }
-
     fun getAllStudent(): LiveData<List<Student>> = studentRepository.getAllStudent()
 
     fun getAllStudentAndUniversity(): LiveData<List<StudentAndUniversity>> = studentRepository.getAllStudentAndUniversity()

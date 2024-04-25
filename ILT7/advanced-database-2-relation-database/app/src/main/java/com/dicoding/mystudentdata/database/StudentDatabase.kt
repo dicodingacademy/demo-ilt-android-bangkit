@@ -14,6 +14,7 @@ abstract class StudentDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: StudentDatabase? = null
 
+        // TODO [3] Add an applicationScope parameter and an addCallback function to the getDatabase function in StudentDatabase.
         @JvmStatic
         fun getDatabase(context: Context): StudentDatabase {
             if (INSTANCE == null) {
@@ -21,6 +22,7 @@ abstract class StudentDatabase : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         StudentDatabase::class.java, "student_database")
                         .fallbackToDestructiveMigration()
+                        // TODO [5] If you want to import data using a database file, you can call createFromAsset.
                         .build()
                 }
             }
