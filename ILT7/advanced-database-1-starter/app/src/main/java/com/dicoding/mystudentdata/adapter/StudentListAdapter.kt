@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.mystudentdata.database.Student
 import com.dicoding.mystudentdata.databinding.ItemStudentBinding
 
-class StudentListAdapter :
-    ListAdapter<Student, StudentListAdapter.WordViewHolder>(WordsComparator()) {
+class StudentListAdapter : ListAdapter<Student, StudentListAdapter.WordViewHolder>(WordsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val binding = ItemStudentBinding.inflate(LayoutInflater.from(parent.context), parent, false)

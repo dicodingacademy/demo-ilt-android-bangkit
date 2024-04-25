@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.dicoding.mystudentdata.database.Student
+import com.dicoding.mystudentdata.database.StudentAndUniversity
+import com.dicoding.mystudentdata.database.StudentAndUniversityWithCourse
+import com.dicoding.mystudentdata.database.StudentWithCourse
+import com.dicoding.mystudentdata.database.UniversityAndStudent
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val studentRepository: StudentRepository) : ViewModel() {
@@ -15,9 +19,14 @@ class MainViewModel(private val studentRepository: StudentRepository) : ViewMode
 
     fun getAllStudent(): LiveData<List<Student>> = studentRepository.getAllStudent()
 
-    // TODO [4] Add the getAllStudentAndUniversity function to the MainViewModel.
+    fun getAllStudentAndUniversity(): LiveData<List<StudentAndUniversity>> = studentRepository.getAllStudentAndUniversity()
 
-    // TODO [10] Add the getAllUniversityAndStudent function to the MainViewModel.
+    fun getAllUniversityAndStudent(): LiveData<List<UniversityAndStudent>> = studentRepository.getAllUniversityAndStudent()
+
+    fun getAllStudentWithCourse(): LiveData<List<StudentWithCourse>> = studentRepository.getAllStudentWithCourse()
+
+    fun getAllStudentAndUniversityWithCourse(): LiveData<List<StudentAndUniversityWithCourse>> = studentRepository.getAllStudentAndUniversityWithCourse()
+
     private fun insertAllData() = viewModelScope.launch {
         studentRepository.insertAllData()
     }

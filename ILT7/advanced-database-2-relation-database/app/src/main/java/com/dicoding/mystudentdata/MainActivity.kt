@@ -1,6 +1,7 @@
 package com.dicoding.mystudentdata
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.mystudentdata.adapter.StudentAndUniversityAdapter
+import com.dicoding.mystudentdata.adapter.StudentAndUniversityWithCourseAdapter
 import com.dicoding.mystudentdata.adapter.StudentListAdapter
+import com.dicoding.mystudentdata.adapter.StudentWithCourseAdapter
+import com.dicoding.mystudentdata.adapter.UniversityAndStudentAdapter
+import com.dicoding.mystudentdata.database.StudentAndUniversityWithCourse
 import com.dicoding.mystudentdata.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +68,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.action_show_all_data -> {
+                getAllStudentAndUniversityWithCourse()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -74,21 +85,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO [6] Display relational database data student and university in a recyclerview.
+    private fun getStudentAndUniversity() {
+        val adapter = StudentAndUniversityAdapter()
+        binding.rvStudent.adapter = adapter
+        mainViewModel.getAllStudentAndUniversity().observe(this) {
+            adapter.submitList(it)
+            Log.d(TAG, "getStudentAndUniversity: $it")
+        }
+    }
+
 
 
     private fun getUniversityAndStudent() {
-
+        val adapter = UniversityAndStudentAdapter()
+        binding.rvStudent.adapter = adapter
+        mainViewModel.getAllUniversityAndStudent().observe(this) {
+            Log.d(TAG, "getUniversityAndStudent: $it")
+            adapter.submitList(it)
+        }
     }
 
-    // TODO [12] Display relational database data university and student in a recyclerview.
-    private fun getStudentAndUniversity() {
-
-    }
-
-    // TODO [20] Display relational database data university and student in a recyclerview.
     private fun getStudentWithCourse() {
-
+        val adapter = StudentWithCourseAdapter()
+        binding.rvStudent.adapter = adapter
+        mainViewModel.getAllStudentWithCourse().observe(this) {
+            Log.d(TAG, "getStudentWithCourse: $it")
+            adapter.submitList(it)
+        }
     }
 
+    private fun getAllStudentAndUniversityWithCourse() {
+        val adapter = StudentAndUniversityWithCourseAdapter()
+        binding.rvStudent.adapter = adapter
+        mainViewModel.getAllStudentAndUniversityWithCourse().observe(this) {
+            Log.d(TAG, "getStudentWithCourse: $it")
+            adapter.submitList(it)
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 }
