@@ -24,12 +24,15 @@ class MainActivity : AppCompatActivity() {
         getData()
     }
 
+    // TODO hapus pemanggilan fungsi getQuote dan ubahlah kode untuk memasukkan data ke adapter pada MainActivity
     private fun getData() {
         val adapter = QuoteListAdapter()
+
+        // TODO tambahkan kode berikut pada MainActivity untuk mengimplementasikan LoadStateAdapter pada footer
         binding.rvQuote.adapter = adapter
         mainViewModel.getQuote()
-        mainViewModel.quote.observe(this, {
+        mainViewModel.quote.observe(this) {
             adapter.submitList(it)
-        })
+        }
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Unlimited Quotes</string>
+    <!-- TODO Jangan lupa tambahkan resource baru pada res/values/strings.xml untuk teks pada tombol-->
 </resources>
