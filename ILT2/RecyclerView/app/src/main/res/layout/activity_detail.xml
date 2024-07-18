@@ -10,7 +10,7 @@
         android:id="@+id/iv_heroImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ahmad_dahlan" />
 
