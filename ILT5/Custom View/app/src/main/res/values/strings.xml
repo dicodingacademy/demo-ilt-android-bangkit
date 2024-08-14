@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyCustomView</string>
+    <string name="custom_view_from_another_view">Custom View by modifying an existing view component</string>
+    <string name="custom_view_from_scratch">Custom View from scratch</string>
 </resources>

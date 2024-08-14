@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context="com.dicoding.picodiploma.mycustomview.MainActivity">
 
+    <TextView
+        android:id="@+id/tv_custom_view_from_another_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/custom_view_from_another_view"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.dicoding.picodiploma.mycustomview.MyEditText
         android:id="@+id/my_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/tv_custom_view_from_another_view"
+        app:layout_constraintStart_toStartOf="@id/tv_custom_view_from_another_view"
+        app:layout_constraintTop_toBottomOf="@id/tv_custom_view_from_another_view" />
 
     <com.dicoding.picodiploma.mycustomview.MyButton
         android:id="@+id/my_button"
@@ -29,5 +41,29 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_edit_text" />
+
+    <TextView
+        android:id="@+id/tv_custom_view_from_scratch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/custom_view_from_scratch"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_button" />
+
+    <com.dicoding.picodiploma.mycustomview.FanControl
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_custom_view_from_scratch" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

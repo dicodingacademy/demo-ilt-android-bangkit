@@ -43,7 +43,7 @@ class MyButton
         gravity = Gravity.CENTER
 
         // Mengubah text pada button pada kondisi enable dan disable
-        text = if(isEnabled) "Submit" else "Isi Dulu"
+        text = if(isEnabled) "Submit" else "Type first"
     }
 
 }
