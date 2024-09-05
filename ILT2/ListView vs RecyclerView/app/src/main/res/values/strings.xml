@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">My List</string>
+
+    <string name="heroes_name">Nama Pahlawan</string>
+    <string name="description">Deskripsi</string>
+
+    <string-array name="data_name">
+        <item>Ahmad Dahlan</item>
+        <item>Ahmad Yani</item>
+        <item>Sutomo</item>
+        <item>Gatot Soebroto</item>
+        <item>Ki Hadjar Dewantarai</item>
+        <item>Mohammad Hatta</item>
+        <item>Soedirman</item>
+        <item>Soekarno</item>
+        <item>Soepomo</item>
+    </string-array>
+
+    <string-array name="data_description">
+        <item>One of the leading ulama and khatib at the Grand Mosque of the Yogyakarta Sultanate at that time, and the mother of K.H. Ahmad Dahlan was the daughter of H. Ibrahim who was also the head of the Ngayogyakarta Hadiningrat Sultanate at that time. KH. Ahmad Dahlan has spearheaded the revival of the Islamic ummah to realize its fate as a colonized nation that still has to learn and act. </item>
+        <item>Posthumous TNI General Ahmad Yani (also spelled Achmad Yani; born in Purworejo, Central Java, 19 June 1922 – died in Lubang Buaya, Jakarta, 1 October 1965 at the age of 43 years) was the commander of the Indonesian Army, and was killed by members of the 30 September Movement while trying to kidnap him from his home.</item>
+        <item>Sutomo (born in Surabaya, East Java, 3 October 1920 - died in Padang Arafah, Saudi Arabia, 7 October 1981 at the age of 61 years) better known by the people as Bung Tomo, was a hero who was famous for his role in raised the people\'s enthusiasm to fight the return of the Dutch colonialists through the NICA army, which ended with the battle of 10 November 1945 which is still celebrated as Heroes\' Day.</item>
+        <item>TNI General (Ret.) Gatot Soebroto (born in Sumpiuh, Banyumas, Central Java, 10 October 1907 – died in Jakarta, 11 June 1962 at the age of 54 years) was a figure in the Indonesian military\'s struggle for independence and also an Indonesian national hero . He was buried in Ungaran, Semarang district.</item>
+        <item>Raden Mas Soewardi Soerjaningrat (EBI: Suwardi Suryaningrat, since 1922 Ki Hadjar Dewantara, EBI: Ki Hajar Dewantara, some write the Javanese sound as Ki Hajar Dewantoro; born in Pakualaman, 2 May 1889 - died in Yogyakarta, 26 April 1959 at the age of 69 years; hereinafter abbreviated as "Soewardi" or "KHD") was an activist of the Indonesian independence movement, columnist, politician, and pioneer of education for indigenous Indonesians from the Dutch colonial era. He is the founder of the Taman Siswa College, an educational institution that provides opportunities for natives to obtain educational rights like the gentry and Dutch people.</item>
+        <item>Dr. (HC) Drs. H. Mohammad Hatta (born with the name Mohammad Athar, known as Bung Hatta; born in Fort de Kock (now Bukittinggi, West Sumatra), Dutch East Indies, 12 August 1902 - died in Jakarta, 14 March 1980 at the age of 77 years) is a figure fighter, statesman, economist, and also the first Vice President of Indonesia. He and Soekarno played an important role in liberating the Indonesian people from Dutch colonialism and proclaimed it on 17 August 1945. He also served as Prime Minister in the Hatta I, Hatta II and RIS Cabinets. He resigned from his post as vice president in 1956, due to disagreements with President Soekarno. Hatta is also known as the Father of Indonesian Cooperatives</item>
+        <item>Grand General Raden Soedirman (EYD: Sudirman; born 24 January 1916 – died 29 January 1950 at the age of 34 years) was a high-ranking Indonesian officer during the Indonesian National Revolution. Becoming the first commander-in-chief of the Indonesian National Army, he continues to be widely respected in Indonesia. Born to a commoner couple in Purbalingga, Dutch East Indies, Soedirman was adopted by his uncle who was a priyayi. After his family moved to Cilacap in 1916, Sudirman grew into a diligent student; He is very active in extracurricular activities, including taking part in a scouting program run by the Islamic organization Muhammadiyah. While in high school, Sudirman began to demonstrate his ability in leadership and organization, and was respected by society for his devotion to Islam. After dropping out of teacher training, in 1936 he began working as a teacher, and later became principal, at a Muhammadiyah elementary school; He was also active in other Muhammadiyah activities and became the leader of the Muhammadiyah Youth Group in 1937. After Japan occupied the Dutch East Indies in 1942, Sudirman continued to teach. In 1944, he joined the Japanese-sponsored Homeland Defenders Army (PETA), serving as battalion commander in Banyumas. During his tenure, Sudirman and his fellow soldiers staged a rebellion, but were then exiled to Bogor.</item>
+        <item>Dr. (H.C.) Ir. H. Soekarno (ER, EYD: Sukarno, birth name: Koesno Sosrodihardjo) (born in Surabaya, East Java, 6 June 1901 - died in Jakarta, 21 June 1970 at the age of 69 years) was the first President of the Republic of Indonesia who served in 1945. –1967. He played an important role in liberating the Indonesian people from Dutch colonialism. He was the Proclaimer of Indonesian Independence (together with Mohammad Hatta) which occurred on August 17 1945. Soekarno was the first to come up with the concept of Pancasila as the basis of the Indonesian state and he himself named it.</item>
+        <item>Prof. Mr Dr. Soepomo (Soewandi spelling: Supomo; born in Sukoharjo, Central Java, 22 January 1903 – died in Jakarta, 12 September 1958 at the age of 55 years) was an Indonesian national hero. Soepomo is known as the architect of the 1945 Constitution, together with Muhammad Yamin and Soekarno.</item>
+    </string-array>
+
+    <integer-array name="data_photo">
+        <item>@drawable/ahmad_dahlan</item>
+        <item>@drawable/ahmad_yani</item>
+        <item>@drawable/bung_tomo</item>
+        <item>@drawable/gatot_subroto</item>
+        <item>@drawable/ki_hadjar_dewantara</item>
+        <item>@drawable/mohammad_hatta</item>
+        <item>@drawable/sudirman</item>
+        <item>@drawable/sukarno</item>
+        <item>@drawable/supomo</item>
+    </integer-array>
+</resources>
