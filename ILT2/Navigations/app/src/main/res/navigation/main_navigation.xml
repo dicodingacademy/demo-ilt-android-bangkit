@@ -25,12 +25,6 @@
         android:name="com.dicoding.navigations.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us">
-        <!--    TODO: 7. Mention how we can also implement a deep link to one of the fragment -->
-        <!-- It's reccommended to demonstrate the deeplink demo like in the slide-->
-        <deepLink
-            android:id="@+id/deepLink"
-            android:autoVerify="true"
-            app:uri="https://www.dicoding.com/mynavigationapp/aboutus" />
     </fragment>
     <fragment
         android:id="@+id/tripDetailFragment"
